@@ -240,7 +240,7 @@ def sweep_setlength_absk(sigma_tilde_list, rel_k_list, channel_length=1, L0=1, o
             w_scale /= kscale_out
         else:
             if verbose > 0:
-                print('{0} iterations: k scale is off by {1:.1e}%'.format(len(kscale_list), 100*10**k_logrelerr))
+                print('{0} iterations: k scale is off by {1:.1e}%'.format(len(kscale_list), 100*k_relerr))
             break
     if verbose > 1:
         plt.plot(kscale_list)
@@ -261,7 +261,7 @@ def channel_set_length(omega, sigma, channel_length, L0=1e-4, nperiods=2, pts_pe
         pars[i]['k'] = k_list[i]
         pars[i]['q'] = q_from_k(omega=pars[i]['omega'], beta=beta, L0=L0, k=pars[i]['k'], zeta=zeta)
     q_list = [p['q'] for p in pars]
-    if np.abs(np.abs(np.max(q_list)/np.min(q_list)-1)) > 1e-3:
+    if np.abs(np.max(q_list)/np.min(q_list)-1) > 1e-3:
         print('WARNING: q values computed using k and omega for each constriction vary by more than 0.1%')
     if return_params:
         return x, L, t, pars
