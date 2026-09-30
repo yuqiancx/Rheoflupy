@@ -76,7 +76,7 @@ def analyze_sweep(x, L, t=None, q=None, q_from_omega=None, eta=1e-3, beta=1, zet
     if silent:
         min_idx = argrelmin(L)[0]
     else:
-        fig, ax, ax2, min_idx = plot_channel(x, L, t=t, q=q, eta=eta, return_minima=True)
+        fig, ax, ax2, min_idx = plot_channel(x, L, t=t, q=q, eta=eta, beta=beta, zeta=zeta, return_minima=True)
         print('Planar flow rate needed: {0:.1e} mm2/s'.format(q*1e6))
                
     stress_amps = []
@@ -247,7 +247,7 @@ def AnalyzeChannelShape(channel_img, topedge, bottomedge, crop=None, px_size=1, 
         q = q_from_Lx(x, L, design_omega, beta=beta, zeta=zeta)
     else:
         design_omega = None
-    t = t_from_L(x, L, q=q)
+    t = t_from_L(x, L, q=q, beta=beta, zeta=zeta)
     constriction_params = analyze_sweep(x, L, q=q, q_from_omega=design_omega, eta=eta, beta=beta, zeta=zeta, include_extrema=False, silent=True)
     stramp, omega, phi = constriction_params[0][0], constriction_params[1][0], constriction_params[2][0]
     if design_omega is None:
