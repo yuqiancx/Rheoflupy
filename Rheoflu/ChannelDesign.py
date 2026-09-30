@@ -233,8 +233,8 @@ def sweep_setlength_absk(sigma_tilde_list, rel_k_list, channel_length=1, L0=1, o
         test_x, test_L, test_t, kscale_out = sweep_setlength(sigma_tilde_list, rel_k_list=k_in, channel_length=channel_length, L0=L0, 
                                                              omega_scale=w_scale, nperiods=nperiods, pts_per_sol=pts_per_sol, return_k=True)
         kscale_list.append(kscale_out)
-        k_logrelerr = np.log10(np.abs(kscale_out-1))
-        if k_logrelerr>-2:
+        k_relerr = np.abs(kscale_out-1)
+        if k_relerr > 1e-2:
             for i in range(len(k_in)):
                 k_in[i] *= kscale_out
             w_scale /= kscale_out
